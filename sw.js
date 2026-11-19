@@ -1,4 +1,4 @@
-const CACHE = 'os-ennova-1.1.1';
+const CACHE = 'ate-ennova-1.1.2';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'html2canvas.min.js', 'jspdf.umd.min.js',
   'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 self.addEventListener('install', e => {
@@ -15,7 +15,10 @@ self.addEventListener('fetch', e => {
   if (url.origin !== location.origin && !isFont) return;
   if (req.mode === 'navigate') {
     // página: tenta a rede (pega atualizações); sem sinal, usa a cópia guardada
-    e.respondWith(fetch(req).then(r => { const c = r.clone(); caches.open(CACHE).then(ca => ca.put('index.html', c)); return r; })
+    e.respondWith(fetch(req).then(r => {
+        if (r.ok) { const c = r.clone(); caches.open(CACHE).then(ca => ca.put('index.html', c)); return r; }
+        return caches.match('index.html').then(hit => hit || r);
+      })
       .catch(() => caches.match('index.html')));
     return;
   }
