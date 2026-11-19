@@ -1,4 +1,4 @@
-const CACHE = 'os-ennova-1.1.0';
+const CACHE = 'os-ennova-1.1.1';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'html2canvas.min.js', 'jspdf.umd.min.js',
   'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 self.addEventListener('install', e => {
